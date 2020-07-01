@@ -2,7 +2,7 @@
   "name": "bpdts-test-app-mg",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": ""
   },
