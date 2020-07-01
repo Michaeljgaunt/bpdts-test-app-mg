@@ -1,51 +1,57 @@
 const express = require('express');
 const geoUtils = require('../utils/geoUtils.js');
 const APIUtils = require('../utils/APIUtils.js');
-const gdal = require('gdal');
+const union = require('lodash.union')
 
-const supportedCities = ["London"]; //Only supporting London for this example application
+const config = require('../config.json');
 const router = new express.Router();
 
 router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/London
-
 	city = req.params.city
+	city = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase() //input city into Proper Case
 	console.log(`Requested city: ${city}`)
-
-	//Ensure input city is supported
-	try {		
-		if (supportedCities.indexOf(city) === -1) throw `Unsupported input: "${req.params.city}"`	
+	
+	//Read coordinates of city from disk
+	try {
+		centroid = geoUtils.getCoordinates(city)	
 	} catch (err) {
 		console.log(err);
-		res.send(`Unsupported input: "${req.params.city}" <br/> Check that the input city is in Proper Case (e.g. London)`);
+		res.send(err);
 		return
 	}
-	
-	//Grab GeoJSON envelope
-	envelope = geoUtils.getCityPolygon(city);
 
 	//Request user data from https://bpdts-test-app.herokuapp.com/
 	try {
 		cityUsers = await APIUtils.getCityUsers(city);	
 		allUsers = await APIUtils.getAllUsers();
+		console.log(`Received ${cityUsers.data.length + allUsers.data.length} records`)
 	} catch (err) {
 		console.log(err);
-		res.send("Error retrieving user data from API \"https://bpdts-test-app.herokuapp.com/\"");
+		res.send({"errorMsg": "API Error", "description": "Unable to retrieve user data from https://bpdts-test-app.herokuapp.com"});
 		return
 	}
 
-	//Filter users within 50 miles of the envelope 
+	//Filter users within n miles of the centroid  (n is defined in config.json, defaulting to 50 miles)
+	dist = (typeof config.distance !== 'undefined') ? config.distance : 50
 	try {
-		bufEnvelope = await geoUtils.getBufferedEnvelope(envelope) //Buffer envelope by 50 miles
+		console.log(`Filtering for users within ${dist} miles of ${city}`)
 		filteredUsers = [];		
-		//If user is within the valid envelope, push to the filtered array
-		//allUsers.data.forEach(user => geoUtils.checkWithin(user.longitude, user.latitude, bufEnvelope) && filteredUsers.push(user));
+		allUsers.data.forEach(user => geoUtils.checkWithin([user.longitude, user.latitude], centroid, dist=dist) && filteredUsers.push(user));
 	} catch (err) {
 		console.log(err);
-		res.send("Error filtering users");
+		res.send({"errorMsg": "Filter error", "description": "Error with geographical filter function"});
 		return
 	}
-	
-	res.send(bufEnvelope);
+
+	//Push any users who live in the city into the filtered list (if they are not already in it)
+	for (var i = 0; i < cityUsers.data.length; i++) {
+		if (!filteredUsers.some(user => user.id === cityUsers.data[i].id)) {
+			filteredUsers.push(cityUsers.data[i]);
+		}
+	}
+
+	console.log(`Sending ${filteredUsers.length} filtered records`)
+	res.send(filteredUsers.length > 0 ? filteredUsers : `No results found for users within ${dist} miles of ${city}`);
 });
 
 module.exports = router;
