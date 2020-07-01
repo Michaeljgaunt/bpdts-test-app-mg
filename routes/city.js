@@ -1,6 +1,7 @@
 const express = require('express');
 const geoUtils = require('../utils/geoUtils.js');
 const APIUtils = require('../utils/APIUtils.js');
+const gdal = require('gdal');
 
 const supportedCities = ["London"]; //Only supporting London for this example application
 const router = new express.Router();
@@ -20,7 +21,7 @@ router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/Lo
 	}
 	
 	//Grab GeoJSON envelope
-	geoJSON = geoUtils.getCityPolygon(city);
+	envelope = geoUtils.getCityPolygon(city);
 
 	//Request user data from https://bpdts-test-app.herokuapp.com/
 	try {
@@ -32,8 +33,19 @@ router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/Lo
 		return
 	}
 
-	res.send(allUsers.data);
+	//Filter users within 50 miles of the envelope 
+	try {
+		bufEnvelope = await geoUtils.getBufferedEnvelope(envelope) //Buffer envelope by 50 miles
+		filteredUsers = [];		
+		//If user is within the valid envelope, push to the filtered array
+		//allUsers.data.forEach(user => geoUtils.checkWithin(user.longitude, user.latitude, bufEnvelope) && filteredUsers.push(user));
+	} catch (err) {
+		console.log(err);
+		res.send("Error filtering users");
+		return
+	}
 	
+	res.send(bufEnvelope);
 });
 
 module.exports = router;
