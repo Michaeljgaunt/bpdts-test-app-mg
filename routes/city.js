@@ -3,7 +3,8 @@ const union = require('lodash.union')
 
 const geoUtils = require('../utils/geoUtils.js');
 const APIUtils = require('../utils/APIUtils.js');
-const config = require('../config.json');
+const config = require('../config.js');
+const cities = require('../data/coordinates.js').cities;
 
 const router = new express.Router();
 
@@ -16,7 +17,7 @@ router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/Lo
 	try {
 		centroid = geoUtils.getCoordinates(city)	
 	} catch (err) {
-		res.status(400).send(err.message);
+		res.status(400).json({"errorCode":400, "errorType":"Bad Request", "errorMsg":err.message, "supportedCities":Object.keys(cities)});
 		console.log(err);
 		return
 	}
@@ -28,11 +29,11 @@ router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/Lo
 		console.log(`Received ${cityUsers.data.length + allUsers.data.length} records`)
 	} catch (err) {
 		console.log(err);
-		res.status(503).send("API Error: Unable to retrieve user data from https://bpdts-test-app.herokuapp.com");
+		res.status(503).json({"errorCode": 503, "errorType":"Service Unavailable", "errorMsg": "Unable to retrieve user data from https://bpdts-test-app.herokuapp.com"});
 		return
 	}
 
-	//Filter users within n miles of the centroid  (n is defined in config.json, defaulting to 50 miles)
+	//Filter users within n miles of the centroid  (n is defined in config.js, defaulting to 50 miles)
 	dist = (typeof config.distance !== 'undefined') ? config.distance : 50
 	try {
 		console.log(`Filtering for users within ${dist} miles of ${city}`)
@@ -40,7 +41,7 @@ router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/Lo
 		allUsers.data.forEach(user => geoUtils.checkWithin([user.longitude, user.latitude], centroid, dist=dist) && filteredUsers.push(user));
 	} catch (err) {
 		console.log(err);
-		res.status(500).send("API Error: geographical filter function has malfunctioned");
+		res.status(500).json({"errorCode": 400, "errorType":"Bad Request", "errorMsg":err.message});
 		return
 	}
 
@@ -52,7 +53,7 @@ router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/Lo
 	}
 
 	console.log(`Sending ${filteredUsers.length} filtered records`)
-	res.status(200).send(filteredUsers.length > 0 ? filteredUsers : `No results found for users within ${dist} miles of ${city}`);
+	res.status(200).json(filteredUsers.length > 0 ? filteredUsers : `No results found for users within ${dist} miles of ${city}`);
 });
 
 module.exports = router;

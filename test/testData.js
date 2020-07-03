@@ -56,7 +56,7 @@ exports.allUsers = [
 	}
 ]
 
-exports.cityUsers = [
+exports.londonUsers = [
 	{
 		"id": 7,
 		"first_name": "Person",
@@ -86,7 +86,7 @@ exports.cityUsers = [
 	}
 ]
 
-exports.excludingLondonUsers = [
+exports.allExcludingLondonUsers = [
 	{
 		"id": 10,
 		"first_name": "Person",

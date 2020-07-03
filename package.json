@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test/unitTests.js"
+    "test": "mocha test/unitTests.js --exit"
   },
   "author": "mgaunt",
   "license": "ISC",
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
     "mocha": "^8.0.1",
     "nock": "^13.0.2"
   }
