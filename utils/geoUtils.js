@@ -6,7 +6,7 @@ exports.getCoordinates = (city) => {
 	let parsed = JSON.parse(rawJSON);
 
 	//Check city is supported (only London for this example app)
-	if (parsed[city.toUpperCase()] === undefined) throw {"errorMsg":`Unsupported city: ${city}`, "description":"Input must be a supported city."}//`Unsupported city: "${city}" <br/> Check that the input city is in Proper Case (e.g. London)`
+	if (parsed[city.toUpperCase()] === undefined) throw new Error(`Unsupported city "${city}"`)
 
 	return parsed[city.toUpperCase()]
 }

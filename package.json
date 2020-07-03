@@ -4,20 +4,19 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": ""
+    "test": "mocha test/unitTests.js"
   },
   "author": "mgaunt",
   "license": "ISC",
   "dependencies": {
-    "@spatial/buffer": "^1.0.5",
     "@turf/turf": "^5.1.6",
     "axios": "^0.19.2",
     "express": "^4.17.1",
-    "gdal": "^0.9.9",
-    "lodash.union": "^4.6.0",
-    "lodash.uniq": "^4.5.0",
-    "utm": "^1.1.1",
-    "utm-zone": "^1.0.1",
-    "wkt": "^0.1.1"
+    "lodash.union": "^4.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1",
+    "nock": "^13.0.2"
   }
 }

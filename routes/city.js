@@ -1,9 +1,10 @@
 const express = require('express');
-const geoUtils = require('../utils/geoUtils.js');
-const APIUtils = require('../utils/APIUtils.js');
 const union = require('lodash.union')
 
+const geoUtils = require('../utils/geoUtils.js');
+const APIUtils = require('../utils/APIUtils.js');
 const config = require('../config.json');
+
 const router = new express.Router();
 
 router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/London
@@ -15,19 +16,19 @@ router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/Lo
 	try {
 		centroid = geoUtils.getCoordinates(city)	
 	} catch (err) {
+		res.status(400).send(err.message);
 		console.log(err);
-		res.send(err);
 		return
 	}
 
-	//Request user data from https://bpdts-test-app.herokuapp.com/
+	//Request user data from https://bpdts-test-app.herokuapp.com API
 	try {
 		cityUsers = await APIUtils.getCityUsers(city);	
 		allUsers = await APIUtils.getAllUsers();
 		console.log(`Received ${cityUsers.data.length + allUsers.data.length} records`)
 	} catch (err) {
 		console.log(err);
-		res.send({"errorMsg": "API Error", "description": "Unable to retrieve user data from https://bpdts-test-app.herokuapp.com"});
+		res.status(503).send("API Error: Unable to retrieve user data from https://bpdts-test-app.herokuapp.com");
 		return
 	}
 
@@ -39,7 +40,7 @@ router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/Lo
 		allUsers.data.forEach(user => geoUtils.checkWithin([user.longitude, user.latitude], centroid, dist=dist) && filteredUsers.push(user));
 	} catch (err) {
 		console.log(err);
-		res.send({"errorMsg": "Filter error", "description": "Error with geographical filter function"});
+		res.status(500).send("API Error: geographical filter function has malfunctioned");
 		return
 	}
 
@@ -51,7 +52,7 @@ router.get("/:city", async (req, res) => { //e.g. http://localhost:3000/users/Lo
 	}
 
 	console.log(`Sending ${filteredUsers.length} filtered records`)
-	res.send(filteredUsers.length > 0 ? filteredUsers : `No results found for users within ${dist} miles of ${city}`);
+	res.status(200).send(filteredUsers.length > 0 ? filteredUsers : `No results found for users within ${dist} miles of ${city}`);
 });
 
 module.exports = router;
