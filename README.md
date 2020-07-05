@@ -1,6 +1,6 @@
 # bpdts-test-app-mg
  
-An example API written with nodejs that returns users living in a given city or whose lon-lat is within a given distance of a given city.
+An example API written with nodejs that returns users living in a given city or whose lon-lat is within a given distance of a city. For the purposes of this example, the only supported city is London.
 
 # Requirements
 
