@@ -17,7 +17,7 @@ Install
 
 `npm install`
 
-Change the listening port in config.js
+If necessary, change the listening port in config.js (defaults to port 3000)
 
 # Run
 Run locally
