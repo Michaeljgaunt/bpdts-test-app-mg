@@ -4,11 +4,23 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": ""
+    "test": "mocha test/unitTests.js --exit",
+    "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
   },
   "author": "mgaunt",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "@turf/turf": "^5.1.6",
+    "axios": "^0.19.2",
+    "express": "^4.17.1",
+    "lodash.union": "^4.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "jsdoc": "^3.6.4",
+    "minami": "^1.2.3",
+    "mocha": "^8.0.1",
+    "nock": "^13.0.2"
   }
 }
