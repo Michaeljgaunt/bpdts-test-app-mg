@@ -1,4 +1,5 @@
 
+//Mock response for all users API; includes 2 users inside London and 4 outside.
 exports.allUsers = [
 	{
 		"id": 1,
@@ -56,6 +57,7 @@ exports.allUsers = [
 	}
 ]
 
+//Mock response for city users API; includes 3 users from London with 1 inside London.
 exports.londonUsers = [
 	{
 		"id": 7,
@@ -86,6 +88,7 @@ exports.londonUsers = [
 	}
 ]
 
+//Mock response for all users API; includes 4 users outside London and 0 inside.
 exports.allExcludingLondonUsers = [
 	{
 		"id": 10,
@@ -125,4 +128,5 @@ exports.allExcludingLondonUsers = [
 	}
 ]
 
+//Mock response for either API with 0 users.
 exports.emptyUsers = [];
