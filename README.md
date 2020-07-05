@@ -12,7 +12,7 @@ Node v14.5.0
 * @turf/turf
 * lodash.union
 
-# Configuration
+# Installation & Configuration
 Install
 
 `npm install`
