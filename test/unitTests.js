@@ -5,7 +5,7 @@ const chaiHttp = require("chai-http")
 const nock = require("nock");
 
 const testData = require("./testData.js")
-const config = require('../config.js')
+const config = require('config')
 
 const app 	   = require("../app.js")
 const geoUtils = require("../utils/geoUtils.js")

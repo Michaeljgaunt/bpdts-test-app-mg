@@ -1,5 +1,5 @@
 const axios = require('axios');
-const config = require('../config.js')
+const config = require('config')
 
 /**
 * Get the users living in a given city from an external API

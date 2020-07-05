@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test/unitTests.js --exit",
+    "test": "set NODE_ENV=test&& mocha test/unitTests.js --exit",
     "generate-docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
   },
   "author": "mgaunt",
@@ -12,6 +12,7 @@
   "dependencies": {
     "@turf/turf": "^5.1.6",
     "axios": "^0.19.2",
+    "config": "^3.3.1",
     "express": "^4.17.1",
     "lodash.union": "^4.6.0"
   },

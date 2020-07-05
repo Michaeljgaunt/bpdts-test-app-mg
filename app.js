@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const config = require('./config.js')
+const config = require('config')
 const cityUsers = require('./routes/cityUsers.js');
 
 //Define the port to listen on in config.js

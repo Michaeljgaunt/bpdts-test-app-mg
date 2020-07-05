@@ -3,7 +3,7 @@ const union = require('lodash.union')
 
 const geoUtils = require('../utils/geoUtils.js');
 const APIUtils = require('../utils/APIUtils.js');
-const config = require('../config.js');
+const config = require('config')
 const cities = require('../data/coordinates.js').cities;
 
 const router = new express.Router();
