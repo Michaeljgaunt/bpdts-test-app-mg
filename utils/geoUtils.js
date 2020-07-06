@@ -1,6 +1,10 @@
+/**
+ * A module that provides geospatial functions
+ * @module geoUtils
+ */
+
 const turf = require('@turf/turf');
 const cities = require('../data/cityCoordinates.js').cities;
-
 
 /**
 * Get the coordinates of a given city

@@ -1,3 +1,7 @@
+/**
+ * Module representing supported cities and their coordinates
+ * @module cityCoordinates
+ */
 
 //Add cities here in the form "CITYNAME" = [longitude, latitude]. Note that city name must be in upper case
 exports.cities = {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Home - Documentation</title>
+    <title>config/default.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,25 +29,40 @@
 
 <div id="main">
     
+    <h1 class="page-title">config/default.js</h1>
+    
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Module representing configuration options
+ * @module config
+ */
 
+/**
+ * Port to listen on
+ * @type {number}
+ */
+exports.port = 3000
 
+/**
+ * Thresholding distance to the city (in miles).
+ * @type {number}
+ */
+exports.distance = 50
 
-
-
-
-
-
-
-    
-
-
-
+/**
+ * Base URL of the external API. This should never be changed unless the external API changes location.
+ * @type {string}
+ */
+exports.APIbaseURL = "https://bpdts-test-app.herokuapp.com"</code></pre>
+        </article>
+    </section>
 
 
 

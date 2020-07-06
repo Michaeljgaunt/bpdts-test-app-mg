@@ -13,7 +13,7 @@
     "@turf/turf": "^5.1.6",
     "axios": "^0.19.2",
     "config": "^3.3.1",
-    "express": "^4.17.1",
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",

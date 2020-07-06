@@ -1,4 +1,22 @@
+/**
+ * Module representing configuration options
+ * @module config
+ */
 
-exports.port = 3000 //Port that the app listens on
-exports.distance = 50 //Thresholding distance in miles. Users that are within a distance of this value to the input city will be returned.
-exports.APIbaseURL = "https://bpdts-test-app.herokuapp.com" //Base URL of the external API. Leave this as is unless the external API changes locations
+/**
+ * Port to listen on
+ * @type {number}
+ */
+exports.port = 3000
+
+/**
+ * Thresholding distance to the city (in miles).
+ * @type {number}
+ */
+exports.distance = 50
+
+/**
+ * Base URL of the external API. This should never be changed unless the external API changes location.
+ * @type {string}
+ */
+exports.APIbaseURL = "https://bpdts-test-app.herokuapp.com"

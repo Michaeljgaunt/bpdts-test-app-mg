@@ -1,3 +1,8 @@
+/**
+ * A module that provides external API connectivity and functions
+ * @module APIUtils
+ */
+
 const axios = require('axios');
 const config = require('config')
 
