@@ -29,7 +29,7 @@ router.get("/:city", async (req, res) => {
 		console.log(`Received ${cityUsers.data.length + allUsers.data.length} records`)
 	} catch (err) {
 		console.error(err);
-		res.status(503).json({"errorCode": 503, "errorType":"Service Unavailable", "errorMsg": "Unable to retrieve user data from https://bpdts-test-app.herokuapp.com"});
+		res.status(503).json({"errorCode": 503, "errorType":"Service Unavailable", "errorMsg": `Unable to retrieve user data from ${config.APIbaseURL}`});
 		return
 	}
 
@@ -41,7 +41,7 @@ router.get("/:city", async (req, res) => {
 		allUsers.data.forEach(user => geoUtils.checkWithin([user.longitude, user.latitude], cityCoords, dist=dist) && filteredUsers.push(user));
 	} catch (err) {
 		console.error(err);
-		res.status(500).json({"errorCode": 400, "errorType":"Bad Request", "errorMsg":err.message});
+		res.status(500).json({"errorCode": 500, "errorType":"Internal Server Error", "errorMsg":err.message});
 		return
 	}
 

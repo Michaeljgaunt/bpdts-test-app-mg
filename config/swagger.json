@@ -28,13 +28,22 @@
         "summary": "Get users that live in a given city or are within a given distance of a city.",
         "responses": {
           "200": {
-            "description": "Array of users that are found living in or within distance of the city",
+            "description": "OK.",
             "schema": {
               "$ref": "#/definitions/Users"
             }
           },
           "400": {
+            "name": "Bad Request",
             "description": "The specified city is not supported. (Only London is supported for this example API)"
+          },
+          "503": {
+            "name": "Service Unavailable",
+            "description": "The external user API is unavailable."
+          },
+          "500": {
+            "name": "Internal Server Error",
+            "description": "The server failed to process the request."
           }
         }
       }
@@ -54,32 +63,41 @@
       "properties": {
         "id": {
           "type": "integer",
+          "example": 287,
           "uniqueItems": true
         },
         "first_name": {
-          "type": "string"
+          "type": "string",
+          "example": "John"
         },
         "last_name": {
-          "type": "string"
+          "type": "string",
+          "example": "Doe"
         },
         "email": {
           "type": "string",
+          "example": "John.Doe@email.com",
           "uniqueItems": true
         },
         "ip_address": {
-          "type": "string"
+          "type": "string",
+          "example": "127.0.0.1"
         },
         "latitude": {
-          "type": "number"
+          "type": "number",
+          "example": 51.509865
         },
         "longitude": {
-          "type": "number"
+          "type": "number",
+          "example": -0.118092
         }
       }
     },
     "Users": {
       "type": "array",
-      "$ref": "#/definitions/User"
+      "items": {
+        "$ref": "#/definitions/User"  
+      }      
     }
   }
 }
