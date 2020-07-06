@@ -7,17 +7,18 @@ An example API written with nodejs that returns users living in a given city or 
 Node v14.5.0
 
 # Dependencies
-* express
 * axios
+* config
+* express
 * @turf/turf
-* lodash.union
 
 # Installation & Configuration
 Install
 
 `npm install`
 
-If necessary, change the listening port in config.js (defaults to port 3000)
+If necessary, change the listening port in ./config/default.js (defaults to port 3000). 
+Note that the value to use as the threshold distance can also be changed in this config file (defaults to 50 miles).
 
 # Run
 Run locally

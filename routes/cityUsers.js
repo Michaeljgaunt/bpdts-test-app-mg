@@ -1,5 +1,4 @@
 const express = require('express');
-const union = require('lodash.union')
 
 const geoUtils = require('../utils/geoUtils.js');
 const APIUtils = require('../utils/APIUtils.js');

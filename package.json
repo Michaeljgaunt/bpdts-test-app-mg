@@ -14,7 +14,6 @@
     "axios": "^0.19.2",
     "config": "^3.3.1",
     "express": "^4.17.1",
-    "lodash.union": "^4.6.0"
   },
   "devDependencies": {
     "chai": "^4.2.0",
