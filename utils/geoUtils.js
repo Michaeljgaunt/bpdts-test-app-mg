@@ -1,5 +1,5 @@
 const turf = require('@turf/turf');
-const cities = require('../data/coordinates.js').cities;
+const cities = require('../data/cityCoordinates.js').cities;
 
 
 /**

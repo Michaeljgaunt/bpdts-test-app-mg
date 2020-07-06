@@ -3,7 +3,7 @@ const express = require('express');
 const geoUtils = require('../utils/geoUtils.js');
 const APIUtils = require('../utils/APIUtils.js');
 const config = require('config')
-const cities = require('../data/coordinates.js').cities;
+const cities = require('../data/cityCoordinates.js').cities;
 
 const router = new express.Router();
 
