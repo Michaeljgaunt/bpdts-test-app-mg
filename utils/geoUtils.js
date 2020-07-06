@@ -23,8 +23,8 @@ exports.getCoordinates = (city) => {
 /**
 * Check whether two sets of coordinates are within a given distance in miles.
 * 
-* @param {number[]} firstCoords - 2-element coordinate array for in the form [longitude, latitude]
-* @param {number[]} cityCoords - 2-element coordinate array for in the form [longitude, latitude]
+* @param {number[]} firstCoords - 2-element coordinate array in the form [longitude, latitude]
+* @param {number[]} cityCoords - 2-element coordinate array in the form [longitude, latitude]
 * @param {number} [dist=50] - numerical value of the distance threshold to consider a user within a city.
 * @returns {boolean} - returns true if coordinates are within the given distance
 */
