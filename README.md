@@ -42,6 +42,10 @@ Supported cities are stored in "data/cityCoordinates.js". For the purposes of th
 
 `wget "http://localhost:3000/users/London" -O "path/to/output.json"`
 
+##### Using Swagger
+
+Swagger documentation is also provided and can be used to test the API; run the application and navigate to "http://localhost:3000/docs"
+
 # Unit Testing
 Run 
 
