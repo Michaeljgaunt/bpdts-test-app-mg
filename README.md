@@ -34,11 +34,11 @@ The value of the threshold distance defaults to 50 miles, but can be changed in 
 
 Supported cities are stored in "data/cityCoordinates.js". For the purposes of this example API, the only supported city is London.
 
-### Using Curl
+##### Using Curl
 
 `curl -X GET "http://localhost:3000/users/London"`
 
-### Using wget
+##### Using wget
 
 `wget "http://localhost:3000/users/London" -O "path/to/output.json"`
 
