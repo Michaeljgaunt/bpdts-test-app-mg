@@ -15,6 +15,9 @@ Node v14.5.0
 # Installation & Configuration
 Install
 
+Download the latest release .zip from this Github page and unpack to a directory.
+Open a command prompt and change to the unpacked directory, then run
+
 `npm install`
 
 If necessary, change the listening port in ./config/default.js (set to port 3000 by default). 
