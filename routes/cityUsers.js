@@ -33,7 +33,7 @@ router.get("/:city", async (req, res) => {
 		return
 	}
 
-	//Filter users within n miles of the city coords  (n is defined in config.js, defaulting to 50 miles)	
+	//Filter users within n miles of the city coords  (n is defined in config/default.js; 50 miles is the default value)	
 	dist = (typeof config.distance === undefined) ? 50 :config.distance
 	try {
 		console.log(`Filtering for users within ${dist} miles of ${city}`)
